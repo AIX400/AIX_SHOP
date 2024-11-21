@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Спортивный магазин</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  {% load static %}
+  <style>
+    /* Общие стили */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: url("{% static 'images/fon_2.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: #f1f1f1;
+    }
+
+    /* Стили для навигационной панели */
+    .navbar-custom {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+    }
+
+    .navbar-custom .navbar-brand {
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+
+    .navbar-custom .navbar-brand img {
+      max-height: 50px;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-custom .navbar-brand img:hover {
+      transform: scale(1.1);
+    }
+
+    .navbar-custom .navbar-nav li a {
+      color: #fff;
+      padding: 15px 20px;
+      text-transform: uppercase;
+      font-size: 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar-custom .navbar-nav li a:hover {
+      background-color: rgba(34, 139, 34, 0.8);
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Стили для формы */
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      margin: 50px auto;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      color: #f1f1f1;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .form-container .form-control {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-container .form-control:focus {
+      background-color: rgba(255, 255, 255, 1);
+      border-color: rgba(34, 139, 34, 0.8);
+    }
+
+    .form-container .btn-primary {
+      background-color: rgba(34, 139, 34, 0.9);
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-container .btn-primary:hover {
+      background-color: rgba(34, 139, 34, 1);
+    }
+
+    /* Стили для футера */
+    footer {
+      background-color: #222;
+      color: #f1f1f1;
+      padding: 40px 0;
+    }
+
+    footer a {
+      color: #f1f1f1;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #34c759;
+      text-decoration: underline;
+    }
+
+    .social-icons i {
+      font-size: 1.5rem;
+      margin-right: 15px;
+    }
+
+    .social-icons a {
+      color: #f1f1f1;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #34c759;
+    }
+
+    .footer-links {
+      margin-bottom: 20px;
+    }
+
+    .footer-links h6 {
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .footer-contact i {
+      margin-right: 10px;
+    }
+
+    .footer-bottom {
+      background-color: #111;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Анимации и эффекты */
+    .btn-primary, .navbar-custom .navbar-nav li a {
+      transition: all 0.3s ease;
+    }
+
+    .navbar-custom .navbar-nav li a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-container .btn-primary:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(34, 139, 34, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <!-- Навигация -->
+  <nav class="navbar navbar-custom">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://127.0.0.1:8000">
+          <img src="{% static 'images/logo.png' %}" alt="Logo">
+        </a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="http://127.0.0.1:8000">ГЛАВНАЯ СТРАНИЦА</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">ВЫБОР КАТЕГОРИИ
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            {% for category in categories %}
+              <li><a href="{% url 'main:category_detail' category.id %}">{{ category.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li><a href="/support/">CALL CENTRE</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Форма для связи -->
+  <div class="form-container">
+    <h2>Свяжитесь с нами</h2>
+    <form method="POST" action="{% url 'main:support_message' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Имя:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Введите ваше имя" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Номер телефона:</label>
+        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Введите номер телефона" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Что случилось?</label>
+        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Опишите проблему" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+    </form>
+  </div>
+
+  <!-- Футер -->
+  <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <div class="me-5 d-none d-lg-block">
+        <span> Мы в соц.сетях</span>
+      </div>
+      <div class="social-icons">
+        <a href="" class="me-4 text-reset"><i class="fab fa-facebook-f"></i></a>
+        <a href="" class="me-4 text-reset"><i class="fab fa-twitter"></i></a>
+        <a href="" class="me-4 text-reset"><i class="fab fa-google"></i></a>
+        <a href="https://www.instagram.com" class="me-4 text-reset"><i class="fab fa-instagram"></i></a>
+        <a href="" class="me-4 text-reset"><i class="fab fa-linkedin"></i></a>
+        <a href="" class="me-4 text-reset"><i class="fab fa-github"></i></a>
+      </div>
+    </section>
+
+    <div class="footer-bottom">
+      © 2024 AIX SPORT :
+      <a class="text-reset fw-bold" href="http://127.0.0.1:8000">AIX.kg</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Спортивный магазин</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  {% load static %} <!-- Загрузка тега static -->
+
+  <style>
+    body {
+    background-image: url("{% static 'images/fon_2.jpg' %}"); /* Укажите путь к изображению */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #f1f1f1;
+}
+
+.navbar-custom {
+    background-color: rgba(0, 0, 0, 0.6); /* Черный фон с 60% прозрачности */
+    color: #ffffff; /* Белый текст */
+    border: none;
+}
+/* Стили для панели навигации */
+.navbar-custom {
+    background-color: rgba(0, 0, 0, 1); /* Черный фон */
+    color: #ffffff; /* Белый текст */
+    border: none;
+    padding: 10px 20px; /* Отступы панели */
+}
+
+/* Стили для логотипа в виде круга */
+.navbar-custom .navbar-brand img {
+    max-height: 50px; /* Максимальная высота логотипа */
+    width: 50px; /* Ширина логотипа фиксирована */
+    height: 50px; /* Высота логотипа фиксирована */
+    border-radius: 50%; /* Скругление логотипа в круг */
+    object-fit: cover; /* Сохранение пропорций изображения */
+    transition: transform 0.3s ease; /* Плавное увеличение логотипа при наведении */
+}
+
+/* Эффект наведения на логотип */
+.navbar-custom .navbar-brand img:hover {
+    transform: scale(1.1); /* Увеличение логотипа на 10% при наведении */
+}
+
+/* Стили для навигационных ссылок */
+.navbar-custom .navbar-nav li a {
+    background-color: rgba(0, 0, 0, 0.6); /* Темный фон с 60% прозрачности */
+    color: #ffffff; /* Белый текст */
+    padding: 15px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Плавное изменение фона */
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 4px; /* Скругление углов */
+}
+
+/* Эффект наведения для ссылок */
+.navbar-custom .navbar-nav li a:hover {
+    background-color: rgba(34, 139, 34, 0.8); /* Зелёный фон при наведении */
+    color: #ffffff; /* Белый текст */
+    transform: scale(1.05); /* Небольшое увеличение */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Легкая тень */
+}
+
+.navbar-custom .navbar-brand {
+    color: #ffffff; /* Белый цвет для бренда */
+    font-size: 1.5rem; /* Увеличенный размер текста */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.navbar-custom .navbar-nav li a {
+    background-color: rgba(0, 0, 0, 0.4); /* Тёмно-серый фон с 40% прозрачности */
+    color: #ffffff; /* Белый текст */
+    padding: 15px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Плавное изменение фона и цвета */
+    text-transform: uppercase; /* Заглавные буквы для ссылок */
+    font-size: 1rem; /* Размер текста */
+    border-radius: 4px; /* Скругление углов */
+}
+
+.navbar-custom .navbar-nav li a:hover {
+    background-color: rgba(34, 139, 34, 0.8); /* Зелёный фон при наведении */
+    color: #ffffff; /* Белый текст при наведении */
+    transform: scale(1.05); /* Небольшое увеличение при наведении */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Лёгкая тень */
+}
+
+.navbar-custom .navbar-nav li.active a {
+    background-color: rgba(0, 140, 186, 0.8); /* Голубой фон для активного элемента */
+    color: #ffffff; /* Белый текст */
+    font-weight: bold; /* Жирный текст для активного элемента */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Лёгкая рамка */
+}
+
+.navbar-custom .navbar-nav li a:focus {
+    background-color: rgba(255, 165, 0, 0.8); /* Оранжевый фон при фокусе */
+    outline: none; /* Убираем стандартный outline */
+    color: #ffffff; /* Белый текст */
+}
+
+.navbar-custom .navbar-nav li {
+    margin: 5px; /* Отступ между элементами */
+}
+
+.navbar-custom .navbar-nav {
+    display: flex;
+    justify-content: center; /* Центровка элементов */
+    gap: 10px; /* Пространство между элементами */
+}
+
+.navbar-custom .navbar-toggler {
+    background-color: #ffffff; /* Белый цвет для кнопки "гамбургер" */
+    color: rgba(0, 0, 0, 0.8); /* Тёмный текст */
+    border: 1px solid rgba(0, 0, 0, 0.10); /* Тонкая рамка */
+}
+
+.navbar-custom .navbar-toggler:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Тёмный фон при наведении */
+    color: #ffffff; /* Белый текст */
+}
+
+/* Для мобильной версии */
+@media (max-width: 768px) {
+    .navbar-custom .navbar-nav {
+        flex-direction: column; /* Вертикальное расположение элементов */
+        align-items: flex-start; /* Выравнивание элементов по левому краю */
+    }
+
+    .navbar-custom .navbar-nav li {
+        margin: 10px 0; /* Отступ между элементами в мобильной версии */
+    }
+}
+    body {
+        background-image: url("{% static 'images/fon_2.jpg' %}"); /* Укажите путь к изображению */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        color: #f1f1f1;
+    }
+
+    .navbar-custom {
+        background-color: rgba(0, 0, 0, 0.6); /* Черный фон с 60% прозрачности */
+        color: #ffffff; /* Белый текст */
+        border: none;
+    }
+
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-nav li a {
+        color: #ffffff; /* Белый текст для элементов */
+    }
+
+    .navbar-custom .navbar-nav li.active a,
+    .navbar-custom .navbar-nav li a:hover {
+        background-color: rgba(0, 140, 186, 0.8); /* Голубой с 80% прозрачности для активного/hover элемента */
+        color: #000000;
+    }
+
+    .navbar-custom .navbar-nav li a {
+        padding: 15px 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    h2, h3 {
+        color: #ffffff;
+    }
+
+    p, .product h4, .product p {
+        color: #08e500;
+    }
+
+    .product {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .product img {
+        align: center;
+        width: 100%;
+        max-width: 200px;
+        border-radius: 5px;
+    }
+
+    .cart {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #444;
+        color: hsl(118, 100%, 58%);
+        border-radius: 8px;
+    }
+
+    .modal-title {
+        color: #ffdd57;
+    }
+
+    label {
+        color: #000000;
+    }
+
+    #total-price {
+        color: #ffdd57;
+        font-weight: bold;
+    }
+
+    /* Стили для карусели */
+    .carousel-inner {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .carousel-inner .item {
+        transition: transform 0.5s ease;
+    }
+
+    .carousel-indicators li {
+        background-color: #08e500;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #08e500;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h2 {
+        animation: fadeIn 2s ease-in-out;
+    }
+    /* Стили для карусели */
+.carousel {
+    position: relative;
+    margin-bottom: 20px; /* Меньше отступ снизу */
+    border-radius: 8px; /* Меньше скругление углов */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    overflow: hidden; /* Обрезка элементов, выходящих за пределы */
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 150px; /* Уменьшена высота карусели */
+    overflow: hidden;
+    border-radius: 8px; /* Скругление углов */
+}
+
+.carousel-inner .item {
+    position: relative;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #f7f7f7; /* Цвет фона слайдов */
+    transition: opacity 1s ease-in-out; /* Плавное изменение прозрачности */
+}
+
+.carousel-inner .active {
+    display: block;
+    opacity: 1; /* Активный элемент будет видимым */
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Изображение заполняет слайд */
+    border-radius: 8px; /* Скругление углов изображений */
+}
+
+.carousel-indicators li {
+    background-color: rgba(0, 140, 186, 0.6); /* Цвет индикаторов */
+    border-color: rgba(0, 140, 186, 0.9); /* Цвет рамки индикаторов */
+    opacity: 1; /* Полная видимость индикаторов */
+    width: 8px; /* Меньше размер индикаторов */
+    height: 8px; /* Меньше размер индикаторов */
+}
+
+.carousel-indicators li.active {
+    background-color: #; /* Цвет активного индикатора */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #08e500; /* Цвет стрелок */
+    border-radius: 50%; /* Скругление стрелок */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета */
+    width: 20px; /* Уменьшены размеры стрелок */
+    height: 20px; /* Уменьшены размеры стрелок */
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: #ffffff; /* Цвет стрелок при наведении */
+}
+
+/* Плавное исчезновение */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px); /* Меньше смещения */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимация для текста и слайдов */
+.carousel-item {
+    animation: fadeIn 1s ease-out; /* Меньше время анимации */
+}
+
+/* Подписи к слайдам */
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5rem; /* Меньший размер шрифта */
+    font-weight: bold;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Меньшая тень для текста */
+}
+    /* Стили для логотипа */
+.navbar-custom .navbar-brand img {
+  max-height: 50px; /* Максимальная высота логотипа */
+  width: auto; /* Автоматическая ширина, чтобы логотип не деформировался */
+  border-radius: 50%; /* Округление логотипа (для круглой формы) */
+  transition: transform 0.3s ease; /* Плавное увеличение логотипа при наведении */
+}
+
+/* Эффект наведения на логотип */
+.navbar-custom .navbar-brand img:hover {
+  transform: scale(1.1); /* Увеличение логотипа на 10% при наведении */
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+  .navbar-custom .navbar-brand img {
+    max-height: 40px; /* Уменьшение высоты логотипа на мобильных устройствах */
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Навигационная панель с кастомным стилем -->
+  <nav class="navbar navbar-custom">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://127.0.0.1:8000">
+  <img src="{% static 'images/logo.png' %}" alt="Logo" style="max-height: 50px;">
+        </a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="http://127.0.0.1:8000">ГЛАВНАЯ СТРАНИЦА</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">ВЫБОР КАТЕГОРИИ
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {% for category in categories %}
+              <li><a href="{% url 'main:category_detail' category.id %}">{{ category.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li><a href="/support/">CALL CENTRE</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<div id="bannerCarousel" class="carousel slide" data-ride="carousel" data-interval="2500">
+  <!-- Индикаторы -->
+  <ol class="carousel-indicators">
+    <li data-target="#bannerCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#bannerCarousel" data-slide-to="1"></li>
+    <li data-target="#bannerCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Слайды -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="https://www.kfc.kg/stores?utm_source=localmedia&utm_medium=kaktus&utm_campaign=5for200&utm_content=bannera" target="_blank">
+        <img src="{% static 'images/bnr1.jpg' %}" alt="Слайд 1">
+      </a>
+    </div>
+    <div class="item">
+      <a href="https://www.instagram.com/lining.admix.kg/" target="_blank">
+        <img src="{% static 'images/bnr2.jpg' %}" alt="Слайд 2">
+      </a>
+    </div>
+    <div class="item">
+      <a href="http://127.0.0.1:8000" target="_blank">
+        <img src="{% static 'images/bnr3.jpg' %}" alt="Слайд 3">
+      </a>
+    </div>
+  </div>
+
+  <!-- Элементы управления -->
+  <a class="left carousel-control" href="#bannerCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#bannerCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+  <div class="container">
+    <h2>Добро пожаловать в Спортивный магазин</h2>
+    <p>У нас вы найдете всё для спорта!</p>
+
+    <h3>Наши товары</h3>
+    <div class="row">
+      {% for product in products %}
+        <div class="col-sm-4 product">
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          {% else %}
+            <p>Изображение отсутствует</p>
+          {% endif %}
+          <h4>{{ product.name }}</h4>
+          <p>Цена: {{ product.price }} сом</p>
+          <button class="btn btn-success" onclick="addToCart('{{ product.name }}', {{ product.price }})">Добавить в корзину</button>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="cart">
+      <h3>Корзина</h3>
+      <ul id="cart-items"></ul>
+      <p>Итого: <span id="total-price">0</span> сом</p>
+      <button class="btn btn-primary" onclick="openCheckoutModal()">Оформить заказ</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно оформления заказа -->
+  <div id="checkoutModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Оформление заказа</h4>
+        </div>
+        <div class="modal-body">
+          <form id="checkoutForm">
+            <div class="form-group">
+              <label for="country">Адрес :</label>
+              <input type="text" class="form-control" id="country" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Номер телефона:</label>
+              <input type="tel" class="form-control" id="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="card">Номер карты:</label>
+              <input type="text" class="form-control" id="card" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" onclick="submitOrder()">Подтвердить заказ</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    let total = 0;
+
+    // Функция добавления товаров в корзину
+    function addToCart(productName, productPrice) {
+        total += productPrice;
+        document.getElementById('cart-items').innerHTML += `<li>${productName} - ${productPrice} сом</li>`;
+        document.getElementById('total-price').innerText = total;
+    }
+
+    // Открытие модального окна оформления заказа
+    function openCheckoutModal() {
+        $('#checkoutModal').modal('show');
+    }
+
+    // Подтверждение заказа
+    function submitOrder() {
+        const form = document.getElementById('checkoutForm');
+        if (form.checkValidity()) {
+            alert('Ваш заказ оформлен!');
+            $('#checkoutModal').modal('hide');
+            // Очистка корзины
+            document.getElementById('cart-items').innerHTML = '';
+            document.getElementById('total-price').innerText = '0';
+        } else {
+            alert('Пожалуйста, заполните все поля');
+        }
+    }
+</script>
+</body>
+</html>
